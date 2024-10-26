@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="description" content="Cricket's Tickets Store">
+   <meta name="author" content="Filip B.">
+   <meta name="attributions" content="Freepik, Pexels, Pixabay, Flaticon, DALL-E2">
+   <title>Cricket's Tickets Store</title>
+   <link rel="stylesheet" type="text/css" href="/styles/style.css" />
+   <link rel="icon" href="/images/cricketticketicon.png">
+</head>
+
+<body id="wrapper">
+    <%- include('partials/header') %>
+
+    <div id="middlewrapper">
+
+        <h1>Your Purchased Tickets for this VAT</h1>
+
+        <div class="ticket-container">
+
+            <% if (currentIndex > 0) { %>
+                <a href="/tickets?index=<%= currentIndex - 1 %>">
+                    <img src="/images/leftarrow.png" class="arrow left-arrow" alt="Previous">
+                </a>
+            <% } else { %>
+                <div class="arrow-placeholder"></div>
+            <% } %>
+            
+            <div class="ticket-content">
+
+                <a href="/ticket/<%= ticket.id %>">
+                    <img src="<%= qrCodeUrl %>" alt="QR Code" class="ticket-image">
+                </a>
+
+                <div class="ticket-details">
+                    <p><strong>Movie Title:</strong> <%= movieTitle %></p>
+                    <p><strong>Date of Purchase:</strong> <%= new Date(ticket.created_at).toLocaleString() %></p>
+                </div>
+
+            </div>
+
+            <% if (currentIndex < totalTickets - 1) { %>
+                <a href="/tickets?index=<%= currentIndex + 1 %>">
+                    <img src="/images/rightarrow.png" class="arrow right-arrow" alt="Next">
+                </a>
+            <% } else { %>
+                <div class="arrow-placeholder"></div>
+            <% } %>
+        </div>
+
+        <a href="/">Back to Home</a>
+        
+
+    </div>
+</body>
+</html>

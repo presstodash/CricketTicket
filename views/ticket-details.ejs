@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="description" content="Cricket's Tickets Store">
+   <meta name="author" content="Filip B.">
+   <meta name="attributions" content="Freepik, Pexels, Pixabay, Flaticon, DALL-E2">
+   <title>Cricket's Tickets Store</title>
+   <link rel="stylesheet" type="text/css" href="/styles/style.css" />
+   <link rel="icon" href="/images/cricketticketicon.png">
+</head>
+
+<body id="wrapper">
+    <%- include('partials/header') %>
+
+    <div id="middlewrapper">
+
+        <div class="ticket-details-container">
+
+            <h1>Ticket Details</h1>
+    
+            <div class="ticket-content">
+                <div class="ticket-details">
+                    <p><strong>Ticket ID:</strong> <%= ticket.id %></p>
+                    <p><strong>Movie Title:</strong> <%= movieTitle %></p>
+                    <p><strong>Date of Purchase:</strong> <%= new Date(ticket.created_at).toLocaleDateString() %></p>
+                </div>
+            </div>
+    
+            <a href="/" class="btn back-home-btn">Back to Home</a>
+        </div>
+
+    </div>
+</body>
+</html>

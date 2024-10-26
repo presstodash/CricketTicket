@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="description" content="Cricket's Tickets Store">
+   <meta name="author" content="Filip B.">
+   <meta name="attributions" content="Freepik, Pexels, Pixabay, Flaticon, DALL-E2">
+   <title>Cricket's Tickets Store</title>
+   <link rel="stylesheet" type="text/css" href="/styles/style.css" />
+   <link rel="icon" href="/images/cricketticketicon.png">
+</head>
+
+<body id="wrapper">
+
+   <%- include('partials/header') %>
+
+   <div id="middlewrapper">
+      <div id="ticket-counter">
+         <p>Total Tickets Sold: <%= totalTickets %></p>
+      </div>
+
+      <div class="movie-container">
+         <% if (currentIndex > 0) { %>
+            <a href="/?index=<%= currentIndex - 1 %>">
+               <img src="/images/leftarrow.png" class="arrow left-arrow" alt="Previous">
+            </a>
+         <% } %>
+
+         <img src="<%= movie.image_url %>" alt="<%= movie.title %>" class="movie-image">
+
+         <% if (currentIndex < totalMovies - 1) { %>
+            <a href="/?index=<%= currentIndex + 1 %>">
+               <img src="/images/rightarrow.png" class="arrow right-arrow" alt="Next">
+            </a>
+         <% } %>
+      </div>
+
+      <div class="movie-details">
+         <h2><%= movie.title %></h2>
+         <p><%= movie.description %></p>
+         <p>Release Date: <%= movie.release_date %></p>
+      </div>
+
+      <div id="ticket-purchase">
+         <% if (user) { %>
+            <div class="buy-ticket-btn" onclick="location.href='/buy-ticket/<%= movie.id %>'"></div>
+         <% } %>
+      </div>
+   </div>
+
+</body>
+
+</html>

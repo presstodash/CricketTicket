@@ -1,0 +1,297 @@
+html {
+   height: 100%;
+}
+
+* {
+   box-sizing: border-box;
+   padding: 0px;
+   margin: 0;
+}
+
+body {
+   background-color: #13d4d4;
+   animation: siteload 0.2s;
+   font-family: 'Chewy', cursive;
+}
+
+@keyframes siteload {
+   from {
+      opacity: 0.25;
+   }
+
+   to {
+      opacity: 1;
+   }
+}
+
+
+/* Header Related */
+/* */
+
+/* Banner */
+#logotype {
+   border-style: solid;
+   border-width: 2px;
+   min-height: 125px;
+   background-image: url("../images/cricketticketbg.png");
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-color: #88AEE0;
+   cursor: pointer;
+}
+
+/* Banner flexible */
+.header-grid {
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+   align-items: stretch;
+   padding: 10px;
+   background-color: #f8f8f8;
+   gap: 15px;
+}
+
+@media (max-width: 768px) {
+   .header-grid {
+       grid-template-columns: 1fr;
+       text-align: center;
+   }
+   #headerbuttons {
+       text-align: center;
+       margin-top: 10px;
+   }
+}
+
+#headerdiv {
+   border-style: solid;
+   border-width: 2px;
+   background-color: #88AEE0;
+   border-color: black;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}
+
+#headerbuttons {
+   display: flex;
+   justify-content: flex-end;
+   border-style: solid;
+   border-width: 2px;
+   border-color: black;
+   background-color: #88AEE0;
+   height: 100%;
+   align-items: center;
+   padding-right: 15px;
+}
+
+/* Header text styling */
+#headerdivtext {
+   text-align: center;
+   font-size: 24px;
+   font-weight: bold;
+}
+
+/* Cart button styling */
+#cartbutton-inactive {
+   width: 100px;
+   height: 100px;
+   background-image: url('../images/cart.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin-left: 10px;
+}
+
+#cartbutton {
+   width: 100px;
+   height: 100px;
+   background-image: url('../images/cartfull.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin-left: 10px;
+   cursor: pointer;
+}
+
+/* Login button styling */
+#loginbutton {
+   width: 100px;
+   height: 100px;
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   margin-left: 10px;
+   cursor: pointer;
+}
+
+#loginbutton.login-button {
+   background-image: url('../images/login.png');
+}
+
+#loginbutton.logout-button {
+   background-image: url('../images/logout.png');
+}
+
+/* Movie Preview Related */
+/* */
+
+#middlewrapper {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   height: 100vh;
+   background-color: #00c4cc;
+}
+
+#ticket-counter {
+   padding-bottom: 20px;
+}
+
+.movie-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+}
+
+.movie-image {
+   width: 300px;
+   height: 400px;
+   object-fit: cover;
+}
+
+.arrow {
+   width: 100px;
+   height: 100px;
+   min-width: 100px;
+   cursor: pointer;
+}
+
+.arrow-placeholder {
+   width: 100px;
+   height: 100px;
+   min-width: 100px;
+}
+
+.left-arrow {
+   margin-right: 20px;
+}
+
+.right-arrow {
+   margin-left: 20px;
+}
+
+.movie-details {
+   text-align: center;
+   margin-top: 20px;
+}
+
+.movie-details h2 {
+   font-size: 24px;
+   font-weight: bold;
+}
+
+.movie-details p {
+   font-size: 16px;
+}
+
+.buy-ticket-btn {
+   width: 100px;
+   height: 100px;
+   background-image: url('/images/buyticket.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   cursor: pointer;
+   margin: 10px auto;
+}
+
+/* Ticket Buying related */
+/* */
+
+#ticket-purchase-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto;
+   padding-top: 30px;
+   width: 100%;
+   max-width: 400px;
+}
+
+#ticket-form {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+   width: 100%;
+}
+
+#ticket-form label {
+   font-weight: bold;
+   font-size: 14px;
+}
+
+#ticket-form input {
+   padding: 8px;
+   font-size: 14px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+}
+
+.btn.confirm-btn {
+   padding: 10px 20px;
+   font-size: 16px;
+   font-weight: bold;
+   color: white;
+   background-color: #007bff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.btn.confirm-btn:hover {
+   background-color: #0056b3;
+}
+
+/* Ticket listing related */
+/* */
+
+.ticket-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 20px 0;
+   position: relative;
+}
+
+.ticket-content {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   margin: 0 20px;
+}
+
+.ticket-image {
+   margin-bottom: 20px;
+}
+
+.ticket-details p {
+   margin: 5px 0;
+   font-size: 18px;
+   text-align: center;
+}
+
+.ticket-details-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: 20px 0;
+   position: relative;
+}

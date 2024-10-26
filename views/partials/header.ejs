@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<div class="header-grid">
+   <div class="top" id="logotype" onclick="location.href='/'">
+   </div>
+
+   <div class="top" id="headerdiv">
+       <div class="text" id="headerdivtext">
+           Welcome to Cricket's Tickets Store
+       </div>
+   </div>
+
+   <div class="top" id="headerbuttons">
+        <div id="user-info">
+            <% if (user) { %>
+                <p>Welcome, <%= user.name %>!</p>
+            <% } else { %>
+                <p>Welcome, anonymous user</p>
+            <% } %>
+        </div>
+
+        <% if (vatin) { %>
+            <div class="top" id="cartbutton" onclick="location.href='/tickets'">
+            </div>
+            <% } else { %>
+            <div class="top" id="cartbutton-inactive">
+            </div>
+        <% } %>
+
+        <div class="top <%= user ? 'logout-button' : 'login-button' %>" 
+            id="loginbutton"
+            onclick="location.href='<%= user ? '/logout' : '/login' %>'">
+       </div>
+
+   </div>
+</div>
