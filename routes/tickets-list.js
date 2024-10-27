@@ -3,10 +3,18 @@ const { requiresAuth } = require('express-openid-connect');
 const pool = require('../db');
 const qrcode = require('qrcode');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 router.get('/tickets', requiresAuth(), async (req, res) => {
-    const vatin = req.session.vatin;
-    console.log("VATIN set in tickets-list route:", req.session.vatin);
+    const token = req.cookies.vatinToken;
+        
+    if (!token) {
+        return res.status(400).send({ error: "VATIN token not found" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const vatin = decoded.vatin;
+
     const currentIndex = parseInt(req.query.index) || 0;
 
     if (!vatin) {

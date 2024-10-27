@@ -53,7 +53,19 @@ const config = {
 app.use(auth(config));
 
 app.use((req, res, next) => {
-    res.locals.vatin = req.session.vatin || null;
+    const token = req.cookies.vatinToken;
+    let vatin = null;
+
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            vatin = decoded.vatin;
+        } catch (error) {
+            console.error("Invalid VATIN token:", error);
+        }
+    }
+
+    res.locals.vatin = vatin;
     res.locals.user = req.oidc && req.oidc.user;
     next();
 });

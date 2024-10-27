@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+const jwt = require('jsonwebtoken');
 
 router.get('/', async (req, res) => {
     try {
@@ -10,7 +11,14 @@ router.get('/', async (req, res) => {
         const ticketsCountResult = await pool.query('SELECT COUNT(*) AS total_tickets FROM tickets');
         const totalTickets = ticketsCountResult.rows[0].total_tickets;
 
-        const vatin = req.session.vatin;
+        const token = req.cookies.vatinToken;
+        
+        let vatin = null;
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const vatin = decoded.vatin;
+        }
+
         const user = req.oidc ? req.oidc.user : null;
 
         let movieIndex = parseInt(req.query.index) || 0;

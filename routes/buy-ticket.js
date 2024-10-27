@@ -5,6 +5,7 @@ const pool = require('../db');
 const router = express.Router();
 const qrcode = require('qrcode');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 async function getAccessToken() {
     try {
@@ -119,8 +120,13 @@ router.post('/buy-ticket/:movieId', requiresAuth(), async (req, res) => {
 
         const qrCodeUrl = await qrcode.toDataURL(`${req.protocol}://${req.get('host')}/tickets/${ticketId}`);
 
-        req.session.vatin = vatin;
-        console.log("VATIN set in session:", req.session.vatin);
+        const token = jwt.sign({ vatin }, process.env.JWT_SECRET, { expiresIn: '24h' });
+
+        res.cookie('vatinToken', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000
+        });
 
         res.redirect('/tickets');
     } catch (err) {
