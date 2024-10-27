@@ -19,7 +19,7 @@
 
         <form action="/buy-ticket/<%= movie.id %>" method="POST" id="ticket-form">
             <label for="vatin">OIB:</label>
-            <input type="text" id="vatin" name="vatin" required><br>
+            <input type="text" id="vatin" name="vatin" required maxlength="11" pattern="\d{11}" title="OIB must be exactly 11 digits"><br>
 
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName" required><br>
