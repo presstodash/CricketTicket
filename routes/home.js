@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         const ticketsCountResult = await pool.query('SELECT COUNT(*) AS total_tickets FROM tickets');
         const totalTickets = ticketsCountResult.rows[0].total_tickets;
 
-        const user = req.oidc ? req.oidc.user : null;
+        const user = res.locals.user;
 
         let movieIndex = parseInt(req.query.index) || 0;
 

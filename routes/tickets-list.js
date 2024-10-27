@@ -28,7 +28,7 @@ router.get('/tickets', requiresAuth(), async (req, res) => {
 
         const validIndex = Math.min(Math.max(currentIndex, 0), tickets.length - 1);
         const currentTicket = tickets[validIndex];
-        const user = req.oidc ? req.oidc.user : null
+        const user = res.locals.user;
         const qrCodeUrl = await qrcode.toDataURL(`${req.protocol}://${req.get('host')}/ticket/${currentTicket.id}`);
 
         res.render('tickets-list', {
@@ -64,7 +64,7 @@ router.get('/ticket/:ticketId', requiresAuth(), async (req, res) => {
             return res.status(404).send('Movie not found');
         }
 
-        const user = req.oidc ? req.oidc.user : null
+        const user = res.locals.user;
         const qrCodeUrl = await qrcode.toDataURL(movie.image_url);
 
         res.render('ticket-details', {
