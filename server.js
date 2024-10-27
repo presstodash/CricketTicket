@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const { auth } = require('express-openid-connect');
 const session = require('express-session')
-const axios = require('axios');
+const pgSession = require('connect-pg-simple')(session);
 const path = require('path')
 const app = express();
 
@@ -11,6 +11,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
+    store: new pgSession({
+        pool: pool,
+        tableName: 'session',
+    }),
     secret: process.env.SESSION_SECRET || 'very-secret-randomly-generated-strong-key',
     resave: false,
     saveUninitialized: false,
@@ -38,11 +42,6 @@ app.use(auth(config));
 
 app.use((req, res, next) => {
     res.locals.vatin = req.session.vatin || null;
-    res.locals.user = req.oidc && req.oidc.user;
-    next();
-});
-
-app.use((req, res, next) => {
     res.locals.user = req.oidc && req.oidc.user;
     next();
 });

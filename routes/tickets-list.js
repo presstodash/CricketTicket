@@ -9,7 +9,7 @@ router.get('/tickets', requiresAuth(), async (req, res) => {
     const currentIndex = parseInt(req.query.index) || 0;
 
     if (!vatin) {
-        return res.status(400).send({ error: "VATIN (OIB) not found in cookies" });
+        return res.status(400).send({ error: "VATIN (OIB) not found" });
     }
 
     try {
