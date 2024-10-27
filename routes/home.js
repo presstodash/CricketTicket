@@ -11,14 +11,6 @@ router.get('/', async (req, res) => {
         const ticketsCountResult = await pool.query('SELECT COUNT(*) AS total_tickets FROM tickets');
         const totalTickets = ticketsCountResult.rows[0].total_tickets;
 
-        const token = req.cookies ? req.cookies.vatinToken : null;
-        
-        let vatin = null;
-        if (token) {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const vatin = decoded.vatin;
-        }
-
         const user = req.oidc ? req.oidc.user : null;
 
         let movieIndex = parseInt(req.query.index) || 0;
@@ -37,7 +29,7 @@ router.get('/', async (req, res) => {
             totalMovies: movies.length,
             totalTickets: totalTickets,
             user: user,
-            vatin: vatin
+            vatin: res.locals.vatin
         });
 
     } catch (err) {

@@ -6,14 +6,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.get('/tickets', requiresAuth(), async (req, res) => {
-    const token = req.cookies ? req.cookies.vatinToken : null;
-        
-    if (!token) {
-        return res.status(400).send({ error: "VATIN token not found" });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const vatin = decoded.vatin;
+    const vatin = res.locals.vatin;
 
     const currentIndex = parseInt(req.query.index) || 0;
 
@@ -35,7 +28,7 @@ router.get('/tickets', requiresAuth(), async (req, res) => {
 
         const validIndex = Math.min(Math.max(currentIndex, 0), tickets.length - 1);
         const currentTicket = tickets[validIndex];
-
+        const user = req.oidc ? req.oidc.user : null
         const qrCodeUrl = await qrcode.toDataURL(`${req.protocol}://${req.get('host')}/ticket/${currentTicket.id}`);
 
         res.render('tickets-list', {
@@ -43,7 +36,9 @@ router.get('/tickets', requiresAuth(), async (req, res) => {
             qrCodeUrl,
             movieTitle: currentTicket.title,
             currentIndex: validIndex,
-            totalTickets: tickets.length
+            totalTickets: tickets.length,
+            user: user,
+            vatin: vatin
         });
     } catch (err) {
         console.error('Error fetching tickets:', err);
@@ -69,12 +64,15 @@ router.get('/ticket/:ticketId', requiresAuth(), async (req, res) => {
             return res.status(404).send('Movie not found');
         }
 
+        const user = req.oidc ? req.oidc.user : null
         const qrCodeUrl = await qrcode.toDataURL(movie.image_url);
 
         res.render('ticket-details', {
             ticket: ticket,
             qrCodeUrl: qrCodeUrl,
-            movieTitle: movie.title
+            movieTitle: movie.title,
+            user: user,
+            vatin: res.locals.vatin
         });
     } catch (err) {
         console.error('Error fetching ticket:', err);
