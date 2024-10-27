@@ -72,7 +72,10 @@ router.get('/ticket/:ticketId', requiresAuth(), async (req, res) => {
             qrCodeUrl: qrCodeUrl,
             movieTitle: movie.title,
             user: user,
-            vatin: res.locals.vatin
+            vatin: res.locals.vatin,
+            oib: ticket.oib,
+            firstName: ticket.first_name,
+            lastName: ticket.last_name
         });
     } catch (err) {
         console.error('Error fetching ticket:', err);
