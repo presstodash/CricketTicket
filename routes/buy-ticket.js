@@ -120,6 +120,7 @@ router.post('/buy-ticket/:movieId', requiresAuth(), async (req, res) => {
         const qrCodeUrl = await qrcode.toDataURL(`${req.protocol}://${req.get('host')}/tickets/${ticketId}`);
 
         req.session.vatin = vatin;
+        console.log("VATIN set in session:", req.session.vatin);
 
         res.redirect('/tickets');
     } catch (err) {

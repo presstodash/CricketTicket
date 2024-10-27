@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/tickets', requiresAuth(), async (req, res) => {
     const vatin = req.session.vatin;
+    console.log("VATIN set in tickets-list route:", req.session.vatin);
     const currentIndex = parseInt(req.query.index) || 0;
 
     if (!vatin) {
