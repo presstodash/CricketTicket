@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         const ticketsCountResult = await pool.query('SELECT COUNT(*) AS total_tickets FROM tickets');
         const totalTickets = ticketsCountResult.rows[0].total_tickets;
 
-        const token = req.cookies.vatinToken;
+        const token = req.cookies ? req.cookies.vatinToken : null;
         
         let vatin = null;
         if (token) {

@@ -6,7 +6,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.get('/tickets', requiresAuth(), async (req, res) => {
-    const token = req.cookies.vatinToken;
+    const token = req.cookies ? req.cookies.vatinToken : null;
         
     if (!token) {
         return res.status(400).send({ error: "VATIN token not found" });
