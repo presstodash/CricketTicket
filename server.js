@@ -5,10 +5,18 @@ const { auth } = require('express-openid-connect');
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session);
 const path = require('path')
+const { Pool } = require('pg');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+});
 
 app.use(session({
     store: new pgSession({
