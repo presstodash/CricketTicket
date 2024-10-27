@@ -7,6 +7,7 @@ const pgSession = require('connect-pg-simple')(session);
 const path = require('path')
 const { Pool } = require('pg');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 const app = express();
 
 app.use(express.json());
